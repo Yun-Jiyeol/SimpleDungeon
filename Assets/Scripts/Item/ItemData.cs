@@ -22,4 +22,8 @@ public class ItemData : ScriptableObject
 
     [Header("AddJump")]
     public int AdditionalJump;
+
+    [Header("Speed")]
+    public int AdditionalSpeed;
+    public float SpeedMaintain;
 }

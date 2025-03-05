@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseDelta;
     public bool canLook = true;
 
-    public Action inventory;
 
     private Rigidbody rb;
 

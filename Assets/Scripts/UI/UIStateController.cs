@@ -7,6 +7,8 @@ public class UIStateController : MonoBehaviour
     public Image HPBar;
     public TextMeshProUGUI HealthPotion;
     public TextMeshProUGUI JumpPotion;
+    public TextMeshProUGUI SpeedPotion;
+    public Image SpeedMaintain;
 
     private PlayerStat Stat;
 
@@ -29,5 +31,6 @@ public class UIStateController : MonoBehaviour
     {
         HealthPotion.text = Stat.HpPotion.ToString();
         JumpPotion.text = Stat.JumpPotion.ToString();
+        SpeedPotion.text = Stat.SpeedPotion.ToString();
     }
 }
