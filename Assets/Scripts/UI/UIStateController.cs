@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class UIStateController : MonoBehaviour
 {
     public Image HPBar;
+    public Image StaminaBar;
     public TextMeshProUGUI HealthPotion;
     public TextMeshProUGUI JumpPotion;
     public TextMeshProUGUI SpeedPotion;
@@ -25,6 +26,11 @@ public class UIStateController : MonoBehaviour
     public void HpBarController()
     {
         HPBar.fillAmount = Stat.HP / Stat.MaxHP;
+    }
+
+    public void StaminaBarController()
+    {
+        StaminaBar.fillAmount = Stat.Stamina / Stat.MaxStamina;
     }
 
     public void UpdateItem()

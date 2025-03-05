@@ -8,12 +8,18 @@ public class PlayerStat : MonoBehaviour
     public float HP;
     public float MaxHP;
     public bool isDead = false;
+    public float Stamina;
+    public float MaxStamina;
+    public float HealStamina;
+    private float useStamina;
 
     [Header("ItemHave")]
     public int HpPotion = 0;
     public int JumpPotion = 0;
     public int SpeedPotion = 0;
     public bool isuseSpeedPotion = false;
+
+    private Coroutine BreakTime;
 
     private UIStateController stateController;
     GameManager gameManager;
@@ -22,9 +28,30 @@ public class PlayerStat : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         stateController = UIManager.Instance.StateController;
-        stateController.HpBarController(); 
-        stateController.UpdateItem(); 
+        Invoke(nameof(LateStart), 0.1f);
     }
+
+    void LateStart()
+    {
+        stateController.HpBarController();
+        stateController.StaminaBarController();
+        stateController.UpdateItem();
+    }
+
+    public void UseStaminOneTime(float amount)
+    {
+        if(BreakTime != null)
+        {
+            StopCoroutine(BreakTime);
+        }
+
+        Stamina -= amount;
+        stateController.StaminaBarController();
+
+        BreakTime = StartCoroutine(recoverStamina());
+    }
+
+    
 
     public void TakeSomethingToHp(float amount)
     {
@@ -94,6 +121,21 @@ public class PlayerStat : MonoBehaviour
         StartCoroutine(ChangeSpeed());
     }
 
+    public IEnumerator recoverStamina()
+    {
+        yield return new WaitForSeconds(1f);
+        while(Stamina < MaxStamina)
+        {
+            Stamina += HealStamina;
+            stateController.StaminaBarController();
+            yield return null;
+        }
+        if(Stamina >= MaxStamina)
+        {
+            Stamina = MaxStamina;
+            stateController.StaminaBarController();
+        }
+    }
     IEnumerator ChangeSpeed()
     {
         float maintain = gameManager.SpeedPotion.SpeedMaintain;

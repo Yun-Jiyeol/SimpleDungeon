@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
+    public float RunSpeed;
     public int AddJump;
     public float jumpPower;
     private Vector2 curMovementInput;
@@ -86,10 +87,17 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && (IsGrounded() || AddJump != 0))
         {
+            float useStamina = 20f;
+            if (CharacterManager.Instance.Player.stat.Stamina < useStamina) return;
+
+            CharacterManager.Instance.Player.stat.UseStaminOneTime(useStamina);
+            UIManager.Instance.StateController.StaminaBarController();
+
             if (!IsGrounded()) 
             {
                 AddJump--;
             }
+
             rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
     }
