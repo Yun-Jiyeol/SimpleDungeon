@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
+    public int AddJump;
     public float jumpPower;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
@@ -84,8 +85,12 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded())
+        if (context.phase == InputActionPhase.Started && (IsGrounded() || AddJump != 0))
         {
+            if (!IsGrounded()) 
+            {
+                AddJump--;
+            }
             rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
     }

@@ -11,7 +11,9 @@ public class PlayerStat : MonoBehaviour
 
     [Header("ItemHave")]
     public int HpPotion = 0;
+    private float hppotionheal = 30;
     public int JumpPotion = 0;
+    private int addjump = 1;
 
     private UIStateController stateController;
 
@@ -48,6 +50,28 @@ public class PlayerStat : MonoBehaviour
                 JumpPotion++;
                 break;
         }
+        stateController.UpdateItem();
+    }
+
+    public void OnUseHpPotion()
+    {
+        if(HpPotion <= 0)
+        {
+            return;
+        }
+        TakeSomethingToHp(hppotionheal);
+        HpPotion--;
+        stateController.UpdateItem();
+    }
+
+    public void OnUseJumpPotion()
+    {
+        if (JumpPotion <= 0)
+        {
+            return;
+        }
+        CharacterManager.Instance.Player.controller.AddJump = addjump;
+        JumpPotion--;
         stateController.UpdateItem();
     }
 }

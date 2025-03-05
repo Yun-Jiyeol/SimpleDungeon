@@ -788,6 +788,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 12bf3989-85ef-4823-9b50-1096884df1bc
     m_ActionName: Player/Interact[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 726284428}
+        m_TargetAssemblyTypeName: PlayerStat, Assembly-CSharp
+        m_MethodName: OnUseHpPotion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 90ad102d-98b8-4fc2-8873-720ebdfa68da
+    m_ActionName: Player/UseHpPotion[/Keyboard/h]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 726284428}
+        m_TargetAssemblyTypeName: PlayerStat, Assembly-CSharp
+        m_MethodName: OnUseJumpPotion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 97811b5c-4264-45aa-a4d6-361d2b35e99c
+    m_ActionName: Player/UseJumpPotion[/Keyboard/j]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -806,6 +838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  AddJump: 0
   jumpPower: 80
   groundLayerMask:
     serializedVersion: 2
@@ -864,7 +897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8f6dc087c05c040abc050f135e5703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
+  HP: 70
   MaxHP: 100
   isDead: 0
   HpPotion: 0
