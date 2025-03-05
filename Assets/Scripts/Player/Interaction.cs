@@ -10,7 +10,7 @@ public class Interaction : MonoBehaviour
     public LayerMask layerMask;
 
     public GameObject curInteractGameObject;
-    private ItemData curInteractable;
+    private ItemObject curInteractable;
 
     private Camera camera;
 
@@ -32,7 +32,7 @@ public class Interaction : MonoBehaviour
                 if (hit.collider.gameObject != curInteractGameObject)
                 {
                     curInteractGameObject = hit.collider.gameObject;
-                    curInteractable = hit.collider.GetComponent<ItemData>();
+                    curInteractable = hit.collider.GetComponent<ItemObject>();
                     curInteractable.ControlUI(true);
                 }
             }

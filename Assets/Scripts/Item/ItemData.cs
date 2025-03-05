@@ -5,11 +5,12 @@ using UnityEngine;
 
 public enum ItemType
 {
-    Heal,
-    Addjump
+    Potion,
+    Weapon
 }
 
-public class ItemData : MonoBehaviour
+[CreateAssetMenu(fileName = "Item", menuName = "New Item")]
+public class ItemData : ScriptableObject
 {
     [Header("Info")]
     public string ItemName;
@@ -21,30 +22,4 @@ public class ItemData : MonoBehaviour
 
     [Header("AddJump")]
     public int AdditionalJump;
-
-    public GameObject ItemUI;
-
-    private void Start()
-    {
-        if(ItemUI != null)
-        {
-            ItemUI.SetActive(false);
-        }
-    }
-    public string GetInteractPrompt()
-    {
-        string str = $"{ItemName}\n{ItemDescription}";
-        return str;
-    }
-
-    public void OnInteract()
-    {
-        CharacterManager.Instance.Player.stat.AddItem(this);
-        Destroy(gameObject);
-    }
-
-    public void ControlUI(bool isOn)
-    {
-        ItemUI.SetActive(isOn);
-    }
 }
