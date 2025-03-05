@@ -1060,7 +1060,8 @@ MonoBehaviour:
   isDead: 0
   HpPotion: 0
   JumpPotion: 0
-  SpeedPotion: 0
+  SpeedPotion: 4
+  isuseSpeedPotion: 0
 --- !u!114 &726284429
 MonoBehaviour:
   m_ObjectHideFlags: 0
