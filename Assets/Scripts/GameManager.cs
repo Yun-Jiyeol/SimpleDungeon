@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public ItemData HealPotion;
     public ItemData JumpPotion;
     public ItemData SpeedPotion;
+    public Vector3 savePosition;
+    public Vector3 saveRotation;
 
     private void Awake()
     {
