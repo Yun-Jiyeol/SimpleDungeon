@@ -10,6 +10,7 @@ public class UIStateController : MonoBehaviour
     public TextMeshProUGUI JumpPotion;
     public TextMeshProUGUI SpeedPotion;
     public Image SpeedMaintain;
+    public GameObject CrossHair;
 
     private PlayerStat Stat;
 

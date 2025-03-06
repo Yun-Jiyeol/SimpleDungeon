@@ -8,23 +8,18 @@ public class Interaction : MonoBehaviour
     private float lastCheckTime;
     public float maxCheckDistance;
     public LayerMask layerMask;
+    public GameObject RayPosition;
 
     public GameObject curInteractGameObject;
     private ItemObject curInteractable;
 
-    private Camera camera;
-
-    private void Start()
-    {
-        camera = Camera.main;
-    }
     private void Update()
     {
         if (Time.time - lastCheckTime > checkRate)
         {
             lastCheckTime = Time.time;
 
-            Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            Ray ray = new Ray(RayPosition.transform.position , RayPosition.transform.forward);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
