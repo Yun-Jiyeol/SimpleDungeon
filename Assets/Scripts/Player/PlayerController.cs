@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float RunSpeed;
     public float RunStamina;
     private bool isRun = false;
+    private bool isMove = false;
     public int AddJump;
     public float jumpPower;
     private Vector2 curMovementInput;
@@ -62,7 +63,14 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                CharacterManager.Instance.Player.stat.useStamina = RunStamina;
+                if (isMove)
+                {
+                    CharacterManager.Instance.Player.stat.useStamina = RunStamina;
+                }
+                else
+                {
+                    CharacterManager.Instance.Player.stat.useStamina = 0;
+                }
                 dir *= RunSpeed;
             }
         }
@@ -91,10 +99,12 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
+            isMove = true;
             curMovementInput = context.ReadValue<Vector2>();
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
+            isMove = false;
             curMovementInput = Vector2.zero;
         }
     }
