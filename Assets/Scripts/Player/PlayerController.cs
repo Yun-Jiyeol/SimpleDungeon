@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed;
     public float RunSpeed;
+    public float RunStamina;
+    private bool isRun = false;
     public int AddJump;
     public float jumpPower;
     private Vector2 curMovementInput;
@@ -50,7 +52,24 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-        dir *= moveSpeed;
+        if (isRun)
+        {
+            if(CharacterManager.Instance.Player.stat.Stamina <= 0)
+            {
+                CharacterManager.Instance.Player.stat.useStamina = 0;
+                dir *= moveSpeed;
+            }
+            else
+            {
+                CharacterManager.Instance.Player.stat.useStamina = RunStamina;
+                dir *= RunSpeed;
+            }
+        }
+        else
+        {
+            CharacterManager.Instance.Player.stat.useStamina = 0;
+            dir *= moveSpeed;
+        }
         dir.y = rb.velocity.y;
 
         rb.velocity = dir;
@@ -99,6 +118,18 @@ public class PlayerController : MonoBehaviour
             }
 
             rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+        }
+    }
+
+    public void OnRunning(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            isRun = true;
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            isRun= false;
         }
     }
 

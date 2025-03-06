@@ -1053,6 +1053,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 699b7eac-0fe6-4f9a-8fe8-aa9d75f44b93
     m_ActionName: Player/UseSpeedPotion[/Keyboard/k]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 726284425}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnRunning
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 96be0471-4ce3-49f7-a00b-7f5f14621f25
+    m_ActionName: Player/Run[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1071,7 +1087,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  RunSpeed: 0
+  RunSpeed: 7
+  RunStamina: 25
   AddJump: 0
   jumpPower: 80
   groundLayerMask:
@@ -1137,6 +1154,7 @@ MonoBehaviour:
   Stamina: 100
   MaxStamina: 100
   HealStamina: 0.1
+  useStamina: 0
   HpPotion: 0
   JumpPotion: 0
   SpeedPotion: 0

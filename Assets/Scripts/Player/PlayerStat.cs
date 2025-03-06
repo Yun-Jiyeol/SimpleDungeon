@@ -11,7 +11,7 @@ public class PlayerStat : MonoBehaviour
     public float Stamina;
     public float MaxStamina;
     public float HealStamina;
-    private float useStamina;
+    public float useStamina;
 
     [Header("ItemHave")]
     public int HpPotion = 0;
@@ -38,11 +38,39 @@ public class PlayerStat : MonoBehaviour
         stateController.UpdateItem();
     }
 
+    private void Update()
+    {
+        if(useStamina > 0)
+        {
+            if (BreakTime != null)
+            {
+                StopCoroutine(BreakTime);
+                BreakTime = null;
+            }
+            if(Stamina <= 0)
+            {
+                Stamina = 0;
+                return;
+            }
+
+            Stamina -= useStamina * Time.deltaTime;
+            stateController.StaminaBarController();
+        }
+        else
+        {
+            if (BreakTime == null)
+            {
+                BreakTime = StartCoroutine(recoverStamina());
+            }
+        }
+    }
+
     public void UseStaminOneTime(float amount)
     {
         if(BreakTime != null)
         {
             StopCoroutine(BreakTime);
+            BreakTime = null;
         }
 
         Stamina -= amount;
@@ -51,7 +79,6 @@ public class PlayerStat : MonoBehaviour
         BreakTime = StartCoroutine(recoverStamina());
     }
 
-    
 
     public void TakeSomethingToHp(float amount)
     {
@@ -121,7 +148,7 @@ public class PlayerStat : MonoBehaviour
         StartCoroutine(ChangeSpeed());
     }
 
-    public IEnumerator recoverStamina()
+    IEnumerator recoverStamina()
     {
         yield return new WaitForSeconds(1f);
         while(Stamina < MaxStamina)
@@ -141,6 +168,7 @@ public class PlayerStat : MonoBehaviour
         float maintain = gameManager.SpeedPotion.SpeedMaintain;
         float lefttime = maintain;
         CharacterManager.Instance.Player.controller.moveSpeed += gameManager.SpeedPotion.AdditionalSpeed;
+        CharacterManager.Instance.Player.controller.RunSpeed += gameManager.SpeedPotion.AdditionalSpeed;
 
         while (true)
         {
@@ -156,6 +184,7 @@ public class PlayerStat : MonoBehaviour
 
         UIManager.Instance.StateController.SpeedMaintain.fillAmount = 1;
         CharacterManager.Instance.Player.controller.moveSpeed -= gameManager.SpeedPotion.AdditionalSpeed;
+        CharacterManager.Instance.Player.controller.RunSpeed -= gameManager.SpeedPotion.AdditionalSpeed;
         isuseSpeedPotion = false;
     }
 }
