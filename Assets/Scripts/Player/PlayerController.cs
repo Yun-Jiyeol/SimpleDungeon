@@ -148,22 +148,27 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            isMenuOn = !isMenuOn;
+            OnOffMenu();
+        }
+    }
 
-            if (isMenuOn) //켜질 때
-            {
-                Time.timeScale = 0f;
-                Cursor.lockState = CursorLockMode.None;
-                UIManager.Instance.MenuController.gameObject.SetActive(true);
-                canLook = false;
-            }
-            else //꺼질 때
-            {
-                Time.timeScale = 1f;
-                Cursor.lockState = CursorLockMode.Locked;
-                UIManager.Instance.MenuController.gameObject.SetActive(false);
-                canLook = true;
-            }
+    public void OnOffMenu()
+    {
+        isMenuOn = !isMenuOn;
+
+        if (isMenuOn) //켜질 때
+        {
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            UIManager.Instance.MenuController.gameObject.SetActive(true);
+            canLook = false;
+        }
+        else //꺼질 때
+        {
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+            UIManager.Instance.MenuController.gameObject.SetActive(false);
+            canLook = true;
         }
     }
 

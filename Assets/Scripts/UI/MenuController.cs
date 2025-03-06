@@ -12,4 +12,9 @@ public class MenuController : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public void OnClickOffButton()
+    {
+        CharacterManager.Instance.Player.controller.OnOffMenu();
+    }
 }
