@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Look")]
     public Transform cameraContainer;
+    public Transform head;
     public float minXLook;
     public float maxXLook;
     private float camCurXRot;
@@ -80,6 +81,7 @@ public class PlayerController : MonoBehaviour
         camCurXRot += mouseDelta.y * lookSensitivity;
         camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook);
         cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
+        head.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
         //카메라의 y축만 돌리고
         transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
         //카메라의 x축은 몸을 돌린다
