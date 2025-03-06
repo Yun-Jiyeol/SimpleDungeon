@@ -11,7 +11,7 @@ public class MoveBoard : MonoBehaviour
     public int addNum;
 
     private int num = 0;
-    public List<GameObject> colliderObjects;
+    private List<GameObject> colliderObjects = new List<GameObject>();
 
     Vector3 vec;
 
@@ -69,6 +69,7 @@ public class MoveBoard : MonoBehaviour
     {
         colliderObjects.Add(collision.gameObject);
     }
+
     private void OnCollisionExit(Collision collision)
     {
         colliderObjects.Remove(collision.gameObject);
