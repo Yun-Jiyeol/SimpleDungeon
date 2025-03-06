@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,10 @@ public class Interaction : MonoBehaviour
 
     public GameObject curInteractGameObject;
     private ItemObject curInteractable;
+
+    public Transform CarryPosition;
+    private bool isCarry = false;
+    private GameObject CO;
 
     private void Update()
     {
@@ -46,11 +51,37 @@ public class Interaction : MonoBehaviour
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         if (Time.timeScale == 0) return;
-        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        if(context.phase == InputActionPhase.Started && isCarry)
+        {
+            CO.GetComponent<Collider>().enabled = true;
+            CO.GetComponent<Rigidbody>().useGravity = true;
+            CO.GetComponent<Rigidbody>().AddForce(RayPosition.transform.forward * 1000f);
+            isCarry = false;
+        }
+        else if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
             curInteractable.OnInteract();
             curInteractGameObject = null;
             curInteractable = null;
+        }
+    }
+
+    public void CarryObject(GameObject go)
+    {
+        isCarry = true;
+        CO = go;
+        CO.GetComponent<Collider>().enabled = false;
+        CO.GetComponent<Rigidbody>().useGravity = false;
+        StartCoroutine(CarryObjectPosition());
+    }
+
+    IEnumerator CarryObjectPosition()
+    {
+        while (isCarry)
+        {
+            CO.transform.position = CarryPosition.position;
+            CO.transform.eulerAngles = CarryPosition.eulerAngles;
+            yield return null;
         }
     }
 }

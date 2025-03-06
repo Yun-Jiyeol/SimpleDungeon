@@ -7,7 +7,8 @@ public enum ItemType
 {
     Potion,
     Weapon,
-    Holdable
+    Holdable,
+    CarryAble
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]

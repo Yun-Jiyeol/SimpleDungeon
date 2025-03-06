@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemObject : MonoBehaviour
@@ -34,7 +35,12 @@ public class ItemObject : MonoBehaviour
                 Destroy(gameObject);
                 break;
             case ItemType.Holdable:
+                ItemUI.SetActive(false);
                 CharacterManager.Instance.Player.controller.GetHoldableItemPosition(HoldPosition.transform.position);
+                break;
+            case ItemType.CarryAble:
+                ItemUI.SetActive(false);
+                CharacterManager.Instance.Player.interaction.CarryObject(this.gameObject);
                 break;
         }
     }

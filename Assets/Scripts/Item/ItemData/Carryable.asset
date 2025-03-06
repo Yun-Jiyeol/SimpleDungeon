@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9afbc7e159ba7a243b4809397d5a9de1, type: 3}
+  m_Name: Carryable
+  m_EditorClassIdentifier: 
+  ItemName: Carryable
+  ItemDescription: Click to Carry
+  type: 3
+  HeadAmount: 0
+  AdditionalJump: 0
+  AdditionalSpeed: 0
+  SpeedMaintain: 0
