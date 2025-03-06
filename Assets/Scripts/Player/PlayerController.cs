@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,6 +26,14 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseDelta;
     public bool canLook = true;
 
+    [Header("Hold")]
+    public Vector3 HoldableItem;
+    public float HoldStamina;
+    public float HoldSpeed;
+    public float HoldJump;
+    public float HoldDistance;
+    private bool isHold = false;
+
     private bool isMenuOn = false;
     private Rigidbody rb;
 
@@ -41,7 +50,14 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (!canLook) return;
-        Move();
+        if (isHold)
+        {
+            Hold();
+        }
+        else
+        {
+            Move();
+        }
     }
 
     private void LateUpdate()
@@ -83,6 +99,44 @@ public class PlayerController : MonoBehaviour
         rb.velocity = dir;
     }
 
+    public void GetHoldableItemPosition(Vector3 lastposition)
+    {
+        HoldableItem = lastposition;
+        AddJump = 1;
+        isHold = true;
+    }
+
+    void Hold()
+    {
+        if(CharacterManager.Instance.Player.stat.Stamina <= 0)
+        {
+            isHold = false;
+        }
+        else
+        {
+            CharacterManager.Instance.Player.stat.useStamina = HoldStamina;
+            if (!lengthbetweenPositions(HoldableItem,HoldDistance))
+            {
+                Vector3 vec = new Vector3(HoldableItem.x - transform.position.x, HoldableItem.y - transform.position.y, HoldableItem.z - transform.position.z);
+                vec.Normalize();
+                vec *= HoldSpeed;
+                rb.velocity = vec;
+            }
+            else
+            {
+                rb.velocity = Vector3.zero;
+            }
+        }
+    }
+    bool lengthbetweenPositions(Vector3 nextPosition, float distance)
+    {
+        float x = nextPosition.x - transform.position.x;
+        float y = nextPosition.y - transform.position.y;
+        float z = nextPosition.z - transform.position.z;
+
+        return (Mathf.Sqrt(x * x + y * y + z * z) < distance);
+    }
+
     void CameraLook()
     {
         camCurXRot += mouseDelta.y * lookSensitivity;
@@ -117,7 +171,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && (IsGrounded() || AddJump != 0))
         {
-            float useStamina = 20f;
+            float useStamina = 10f;
             if (CharacterManager.Instance.Player.stat.Stamina < useStamina) return;
 
             CharacterManager.Instance.Player.stat.UseStaminOneTime(useStamina);
@@ -128,7 +182,15 @@ public class PlayerController : MonoBehaviour
                 AddJump--;
             }
 
-            rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            if (isHold)
+            {
+                isHold = false;
+                rb.AddForce(Vector2.up * HoldJump, ForceMode.Impulse);
+            }
+            else
+            {
+                rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            }
         }
     }
 

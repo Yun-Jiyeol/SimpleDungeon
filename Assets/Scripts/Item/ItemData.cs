@@ -6,7 +6,8 @@ using UnityEngine;
 public enum ItemType
 {
     Potion,
-    Weapon
+    Weapon,
+    Holdable
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]
