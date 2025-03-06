@@ -114,6 +114,7 @@ public class PlayerStat : MonoBehaviour
 
     public void OnUseHpPotion()
     {
+        if (Time.timeScale == 0) return;
         if(HpPotion <= 0)
         {
             return;
@@ -125,6 +126,7 @@ public class PlayerStat : MonoBehaviour
 
     public void OnUseJumpPotion()
     {
+        if (Time.timeScale == 0) return;
         if (JumpPotion <= 0)
         {
             return;
@@ -135,6 +137,7 @@ public class PlayerStat : MonoBehaviour
     }
     public void OnUseSpeedPotion()
     {
+        if (Time.timeScale == 0) return;
         if (SpeedPotion <= 0)
         {
             return;
@@ -153,7 +156,7 @@ public class PlayerStat : MonoBehaviour
         yield return new WaitForSeconds(1f);
         while(Stamina < MaxStamina)
         {
-            Stamina += HealStamina;
+            Stamina += HealStamina*Time.deltaTime;
             stateController.StaminaBarController();
             yield return null;
         }

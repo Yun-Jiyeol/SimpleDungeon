@@ -26,6 +26,13 @@ public class UIManager : MonoBehaviour
         set { _stateController = value; }
     }
 
+    public MenuController _menuController;
+    public MenuController MenuController
+    {
+        get { return _menuController; }
+        set { _menuController = value; }
+    }
+
     private void Awake()
     {
         if (_instance == null)

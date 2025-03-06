@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseDelta;
     public bool canLook = true;
 
-
+    private bool isMenuOn = false;
     private Rigidbody rb;
 
     private void Awake()
@@ -40,15 +40,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!canLook) return;
         Move();
     }
 
     private void LateUpdate()
     {
-        if (canLook)
-        {
-            CameraLook();
-        }
+        if (!canLook) return;
+        CameraLook();
     }
 
     void Move()
@@ -142,6 +141,29 @@ public class PlayerController : MonoBehaviour
         else if (context.phase == InputActionPhase.Canceled)
         {
             isRun= false;
+        }
+    }
+
+    public void OnMenu(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            isMenuOn = !isMenuOn;
+
+            if (isMenuOn) //켜질 때
+            {
+                Time.timeScale = 0f;
+                Cursor.lockState = CursorLockMode.None;
+                UIManager.Instance.MenuController.gameObject.SetActive(true);
+                canLook = false;
+            }
+            else //꺼질 때
+            {
+                Time.timeScale = 1f;
+                Cursor.lockState = CursorLockMode.Locked;
+                UIManager.Instance.MenuController.gameObject.SetActive(false);
+                canLook = true;
+            }
         }
     }
 
