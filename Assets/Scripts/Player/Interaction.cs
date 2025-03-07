@@ -67,10 +67,12 @@ public class Interaction : MonoBehaviour
             }
             if(Time.time - lastTime > CO.GetComponent<ItemObject>().data.Rate)
             {
+                if (CharacterManager.Instance.Player.stat.Stamina < CO.GetComponent<ItemObject>().data.UseStamina) return;
+
                 lastTime = Time.time;
+                CharacterManager.Instance.Player.stat.UseStaminOneTime(CO.GetComponent<ItemObject>().data.UseStamina);
                 CO.GetComponent<Animator>().SetTrigger("Attack");
                 CO.GetComponent<Animator>().SetFloat("Speed", 1 / CO.GetComponent<ItemObject>().data.Rate);
-                CharacterManager.Instance.Player.stat.UseStaminOneTime(CO.GetComponent<ItemObject>().data.UseStamina);
 
                 if(curInteractable == null) return;
                 if(curInteractable.data.type != ItemType.BreakAble) return;
