@@ -29,10 +29,13 @@ public class ItemObject : MonoBehaviour
     {
         switch (data.type)
         {
-            case ItemType.Weapon:
             case ItemType.Potion:
+            case ItemType.Resource:
                 CharacterManager.Instance.Player.stat.AddItem(data);
                 Destroy(gameObject);
+                break;
+            case ItemType.Weapon:
+                CharacterManager.Instance.Player.interaction.GetWeapon(data.GO);
                 break;
             case ItemType.Holdable:
                 ItemUI.SetActive(false);

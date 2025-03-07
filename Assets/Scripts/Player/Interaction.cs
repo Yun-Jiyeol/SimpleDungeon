@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,8 +16,10 @@ public class Interaction : MonoBehaviour
     private ItemObject curInteractable;
 
     public Transform CarryPosition;
+    private bool isWeapon = false;
     private bool isCarry = false;
     private GameObject CO;
+    private float lastTime;
 
     private void Update()
     {
@@ -51,7 +54,40 @@ public class Interaction : MonoBehaviour
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         if (Time.timeScale == 0) return;
-        if(context.phase == InputActionPhase.Started && isCarry)
+        if (context.phase == InputActionPhase.Started && isWeapon) //무기를 들었을 때
+        {
+            if (curInteractable != null)
+            {
+                if(curInteractable.data.type == ItemType.Potion || curInteractable.data.type == ItemType.Resource)
+                {
+                    curInteractable.OnInteract();
+                    curInteractGameObject = null;
+                    curInteractable = null;
+                }
+            }
+            if(Time.time - lastTime > CO.GetComponent<ItemObject>().data.Rate)
+            {
+                lastTime = Time.time;
+                CO.GetComponent<Animator>().SetTrigger("Attack");
+                CO.GetComponent<Animator>().SetFloat("Speed", 1 / CO.GetComponent<ItemObject>().data.Rate);
+
+                if(curInteractable == null) return;
+                if(curInteractable.data.type != ItemType.BreakAble) return;
+
+                bool canbreak = false;
+                foreach (ResourceType type in CO.GetComponent<ItemObject>().data.canbreak)
+                {
+                    if(type == curInteractable.data.resourceType)
+                    {
+                        canbreak = true;
+                    }
+                }
+                if(!canbreak) return;
+
+                curInteractGameObject.GetComponent<ResourceGetHit>().OnHit(CO.GetComponent<ItemObject>().data.Damage);
+            }
+        }
+        else if (context.phase == InputActionPhase.Started && isCarry)
         {
             CO.GetComponent<Collider>().enabled = true;
             CO.GetComponent<Rigidbody>().useGravity = true;
@@ -66,6 +102,17 @@ public class Interaction : MonoBehaviour
         }
     }
 
+    public void GetWeapon(GameObject go)
+    {
+        isWeapon = true;
+        lastTime = Time.time;
+        CO = Instantiate(go, CarryPosition);
+        CO.transform.SetParent(CarryPosition);
+        CO.GetComponent<Collider>().enabled = false;
+        CO.GetComponent<Animator>().SetBool("IsHandle", true);
+        StartCoroutine(WeaponMaintain());
+    }
+
     public void CarryObject(GameObject go)
     {
         isCarry = true;
@@ -73,6 +120,23 @@ public class Interaction : MonoBehaviour
         CO.GetComponent<Collider>().enabled = false;
         CO.GetComponent<Rigidbody>().useGravity = false;
         StartCoroutine(CarryObjectPosition());
+    }
+
+    IEnumerator WeaponMaintain()
+    {
+        float leftTime = CO.GetComponent<ItemObject>().data.Duration;
+
+        while (true)
+        {
+            leftTime -= Time.deltaTime;
+            UIManager.Instance.StateController.WeaponMaintain.fillAmount = leftTime / CO.GetComponent<ItemObject>().data.Duration;
+            if(leftTime < 0) break;
+            yield return null;
+        }
+
+        UIManager.Instance.StateController.WeaponMaintain.fillAmount = 1;
+        Destroy(CO);
+        isWeapon =false;
     }
 
     IEnumerator CarryObjectPosition()

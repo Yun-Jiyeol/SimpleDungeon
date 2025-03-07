@@ -108,6 +108,9 @@ public class PlayerStat : MonoBehaviour
             case "SpeedPotion":
                 SpeedPotion++;
                 break;
+            default:
+                Debug.Log($"You Get {item.name}");
+                break;
         }
         stateController.UpdateItem();
     }

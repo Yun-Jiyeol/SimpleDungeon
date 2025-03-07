@@ -8,7 +8,15 @@ public enum ItemType
     Potion,
     Weapon,
     Holdable,
-    CarryAble
+    CarryAble,
+    BreakAble,
+    Resource
+}
+
+public enum ResourceType
+{
+    Wood,
+    Stone
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]
@@ -28,4 +36,17 @@ public class ItemData : ScriptableObject
     [Header("Speed")]
     public int AdditionalSpeed;
     public float SpeedMaintain;
+
+    [Header("Weapon")]
+    public int Damage;
+    public float Rate;
+    public float Duration;
+    public List<ResourceType> canbreak;
+    public GameObject GO;
+
+    [Header("BreakAble")]
+    public ResourceType resourceType;
+    public int Hp;
+    public int fallHp;
+    public GameObject fallResource;
 }
