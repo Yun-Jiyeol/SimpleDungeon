@@ -210,7 +210,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            if(Time.timeScale == 0) return;
+            if(CharacterManager.Instance.Player.stat.isDead) return;
             OnOffMenu();
         }
     }

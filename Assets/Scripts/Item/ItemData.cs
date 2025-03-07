@@ -10,13 +10,19 @@ public enum ItemType
     Holdable,
     CarryAble,
     BreakAble,
-    Resource
+    Resource,
+    Gimic
 }
 
 public enum ResourceType
 {
     Wood,
     Stone
+}
+
+public enum GimicType
+{
+    Lebber
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]
@@ -50,4 +56,7 @@ public class ItemData : ScriptableObject
     public int Hp;
     public int fallHp;
     public GameObject fallResource;
+
+    [Header("GimicType")]
+    public GimicType gimicType;
 }

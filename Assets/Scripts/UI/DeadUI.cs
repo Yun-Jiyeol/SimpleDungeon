@@ -4,10 +4,6 @@ public class DeadUI : MonoBehaviour
 {
     public GameObject UI;
 
-    private void Awake()
-    {
-        GameManager.Instance.DeadUI = this;
-    }
     private void Start()
     {
         UI.SetActive(false);

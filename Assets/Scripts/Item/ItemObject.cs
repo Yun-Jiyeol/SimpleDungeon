@@ -45,6 +45,14 @@ public class ItemObject : MonoBehaviour
                 ItemUI.SetActive(false);
                 CharacterManager.Instance.Player.interaction.CarryObject(this.gameObject);
                 break;
+            case ItemType.Gimic:
+                switch (data.gimicType)
+                {
+                    case GimicType.Lebber:
+                        this.gameObject.GetComponent<Lebber>().loadingLebber();
+                        break;
+                }
+                break;
         }
     }
 
