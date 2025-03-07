@@ -11,6 +11,7 @@ public class DeadZone : MonoBehaviour
             other.gameObject.transform.position = GameManager.Instance.savePosition;
             other.gameObject.transform.eulerAngles = GameManager.Instance.saveRotation;
             other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            other.gameObject.GetComponent<PlayerStat>().TakeSomethingToHp(-25);
         }
         else
         {

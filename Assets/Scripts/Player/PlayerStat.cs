@@ -86,7 +86,7 @@ public class PlayerStat : MonoBehaviour
         if(HP <= 0) //데미지를 받아 체력이 바닥이면 사망
         {
             HP = 0;
-            isDead = true;
+            GameManager.Instance.Dead();
         }
         else if(HP > MaxHP) //회복을 받아 체력이 최대체력이 넘길 시 줄이기
         {

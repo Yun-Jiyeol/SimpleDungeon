@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public ItemData SpeedPotion;
     public Vector3 savePosition;
     public Vector3 saveRotation;
+    public DeadUI DeadUI;
 
     private void Awake()
     {
@@ -35,5 +36,11 @@ public class GameManager : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void Dead()
+    {
+        Time.timeScale = 0f;
+        DeadUI.Dead();
     }
 }
