@@ -70,6 +70,7 @@ public class Interaction : MonoBehaviour
                 lastTime = Time.time;
                 CO.GetComponent<Animator>().SetTrigger("Attack");
                 CO.GetComponent<Animator>().SetFloat("Speed", 1 / CO.GetComponent<ItemObject>().data.Rate);
+                CharacterManager.Instance.Player.stat.UseStaminOneTime(CO.GetComponent<ItemObject>().data.UseStamina);
 
                 if(curInteractable == null) return;
                 if(curInteractable.data.type != ItemType.BreakAble) return;

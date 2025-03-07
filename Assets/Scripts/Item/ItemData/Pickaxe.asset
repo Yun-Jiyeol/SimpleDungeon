@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9afbc7e159ba7a243b4809397d5a9de1, type: 3}
-  m_Name: Ax
+  m_Name: Pickaxe
   m_EditorClassIdentifier: 
-  ItemName: Ax
-  ItemDescription: Can Chop Tree
+  ItemName: Pickaxe
+  ItemDescription: Can break Rock
   type: 1
   HeadAmount: 0
   AdditionalJump: 0
   AdditionalSpeed: 0
   SpeedMaintain: 0
   Damage: 1
-  Rate: 1.5
-  Duration: 20
-  UseStamina: 15
-  canbreak: 00000000
-  GO: {fileID: 5851203843818118351, guid: 862d67aeb497a224cab3c5c1ff6172ac, type: 3}
+  Rate: 1
+  Duration: 15
+  UseStamina: 10
+  canbreak: 01000000
+  GO: {fileID: 5851203843818118351, guid: aaa6a5e24e4aeb8428e57dbfe093c152, type: 3}
   resourceType: 0
   Hp: 0
   fallHp: 0

@@ -27,15 +27,19 @@ public class ResourceGetHit : MonoBehaviour
 
     public void OnHit(int damage)
     {
-        getDamage += damage;
-        if ( Hp <= getDamage)
+        for(int i =0; i < damage; i++)
+        {
+            getDamage++;
+            if(getDamage % fallHp == 0)
+            {
+                if(Hp < getDamage) return;
+                MakeResource();
+            }
+        }
+        if (Hp <= getDamage)
         {
             MakeResource();
             Destroy(gameObject);
-        }
-        else if(getDamage % fallHp == 0)
-        {
-            MakeResource();
         }
         StartCoroutine(Shake());
     }

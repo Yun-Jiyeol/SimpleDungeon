@@ -41,6 +41,7 @@ public class ItemData : ScriptableObject
     public int Damage;
     public float Rate;
     public float Duration;
+    public float UseStamina;
     public List<ResourceType> canbreak;
     public GameObject GO;
 
