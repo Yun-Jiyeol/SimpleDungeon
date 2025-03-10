@@ -16,6 +16,7 @@ public class Interaction : MonoBehaviour
     private ItemObject curInteractable;
 
     public Transform CarryPosition;
+    public bool isClick = false;
     private bool isWeapon = false;
     private bool isCarry = false;
     private GameObject CO;
@@ -54,6 +55,14 @@ public class Interaction : MonoBehaviour
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         if (Time.timeScale == 0) return;
+        if (context.phase == InputActionPhase.Started)
+        {
+            isClick = true;
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            isClick = false;
+        }
         if (context.phase == InputActionPhase.Started && isWeapon) //무기를 들었을 때
         {
             if (curInteractable != null)

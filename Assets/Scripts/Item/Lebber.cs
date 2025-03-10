@@ -24,15 +24,19 @@ public class Lebber : MonoBehaviour
         while (true)
         {
             loading.transform.localScale += new Vector3 (1f, 1f, 1f) * Time.deltaTime / loadingTime;
+            if (!CharacterManager.Instance.Player.interaction.isClick)
+            {
+                break;
+            }
             if(loading.transform.localScale.x >= 1f)
             {
+                isOn = !isOn;
+                changeStickRotation();
                 break;
             }
             yield return null;
         }
 
-        isOn = !isOn;
-        changeStickRotation();
         loading.transform.localScale = Vector3.zero;
         CharacterManager.Instance.Player.controller.canLook = true;
     }
