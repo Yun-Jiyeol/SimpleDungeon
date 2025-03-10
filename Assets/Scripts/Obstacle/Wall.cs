@@ -19,6 +19,12 @@ public class Wall : MonoBehaviour
     public float checkRate = 0.05f;
     private float lastCheckTime;
     Coroutine fallwall;
+    Vector3 lastPosition;
+
+    private void Start()
+    {
+        lastPosition = transform.position;
+    }
 
     private void Update()
     {
@@ -56,8 +62,6 @@ public class Wall : MonoBehaviour
 
     IEnumerator FallWall()
     {
-        Vector3 lastPosition = transform.position;
-
         yield return new WaitForSeconds(FallTime);
         while (isFall)
         {
