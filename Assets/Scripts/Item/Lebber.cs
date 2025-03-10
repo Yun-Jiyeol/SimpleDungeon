@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class Lebber : MonoBehaviour
+public class Lebber : ElectricStart
 {
-    public bool isOn = false;
+    [Header("Lebber")]
     public GameObject stick;
     public GameObject loading;
     public float loadingTime;

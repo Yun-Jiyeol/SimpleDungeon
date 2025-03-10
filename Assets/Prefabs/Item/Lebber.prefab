@@ -705,7 +705,7 @@ GameObject:
   - component: {fileID: 8333246297082351447}
   m_Layer: 7
   m_Name: Lebber
-  m_TagString: Untagged
+  m_TagString: ElectStart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -761,6 +761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOn: 0
+  Long: 8
   stick: {fileID: 1764463487508878923}
   loading: {fileID: 3975194425271292133}
   loadingTime: 3
