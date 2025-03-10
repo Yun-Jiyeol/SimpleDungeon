@@ -94,6 +94,20 @@ public class PlayerStat : MonoBehaviour
         }
         stateController.HpBarController();
     }
+
+    public void TakeSomethingToHp(float amount, Vector3 way)
+    {
+        HP += amount; //체력의 변화
+        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        gameObject.GetComponent<Rigidbody>().AddForce(way * amount * 5000f);
+
+        if (HP <= 0) //데미지를 받아 체력이 바닥이면 사망
+        {
+            HP = 0;
+            GameManager.Instance.Dead();
+        }
+        stateController.HpBarController();
+    }
     
     public void AddItem(ItemData item)
     {
