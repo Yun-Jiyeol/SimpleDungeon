@@ -98,8 +98,10 @@ public class PlayerStat : MonoBehaviour
     public void TakeSomethingToHp(float amount, Vector3 way)
     {
         HP += amount; //체력의 변화
+        CharacterManager.Instance.Player.controller.canLook = false;
+        Invoke(nameof (InvokeCanlook), 1);
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        gameObject.GetComponent<Rigidbody>().AddForce(way * amount * 5000f);
+        gameObject.GetComponent<Rigidbody>().AddForce(way.normalized * amount * 300f);
 
         if (HP <= 0) //데미지를 받아 체력이 바닥이면 사망
         {
@@ -107,6 +109,11 @@ public class PlayerStat : MonoBehaviour
             GameManager.Instance.Dead();
         }
         stateController.HpBarController();
+    }
+
+    void InvokeCanlook()
+    {
+        CharacterManager.Instance.Player.controller.canLook = true;
     }
     
     public void AddItem(ItemData item)
