@@ -57,6 +57,10 @@ public class Wall : MonoBehaviour
             float z = transform.position.z - other.transform.position.z;
 
             other.GetComponent<PlayerStat>().TakeSomethingToHp(-Damage, new Vector3(x, 0, z));
+        }else if (other.gameObject.CompareTag("Enemy"))
+        {
+            isFall = false;
+            other.GetComponent<EnemyStat>().TakeSomethingToHp(-Damage);
         }
     }
 
