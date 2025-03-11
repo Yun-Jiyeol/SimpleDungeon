@@ -1304,6 +1304,7 @@ Transform:
   m_Children:
   - {fileID: 2055478623}
   - {fileID: 1226214007}
+  - {fileID: 1180568757}
   m_Father: {fileID: 1370538917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &263317853
@@ -1847,7 +1848,10 @@ MonoBehaviour:
   checkRate: 0.01
   QustionWord: {fileID: 1982032980}
   FindWord: {fileID: 1805458637}
-  isFind: 0
+  Bullet: {fileID: 3737263315735248937, guid: 0965cf32459a372408a6a6778a466417, type: 3}
+  SootPosition: {fileID: 1180568756}
+  reloading: 0
+  shootRate: 15
 --- !u!4 &386673706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 924828959478199992, guid: 2621b03916eb5cf49bd65b0816ec3424, type: 3}
@@ -7311,6 +7315,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1172766079}
   m_CullTransparentMesh: 1
+--- !u!1 &1180568756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180568757}
+  m_Layer: 9
+  m_Name: AttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1180568757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180568756}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 232614416}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1195506718
 GameObject:
   m_ObjectHideFlags: 0

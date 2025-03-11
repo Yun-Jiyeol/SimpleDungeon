@@ -33,6 +33,11 @@ public class EnemyController_Change : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private Transform playertransform;
 
+    public GameObject Bullet;
+    public GameObject SootPosition;
+    public int reloading = 0;
+    public int shootRate;
+
     private void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -240,6 +245,7 @@ public class EnemyController_Change : MonoBehaviour
         navMeshAgent.angularSpeed = 2400;
         FindWord.SetActive(false);
         QustionWord.SetActive(false);
+        reloading = 0;
         nowEnemyMove = StartCoroutine(CoroutineAttackPlayer());
     }
 
@@ -247,8 +253,17 @@ public class EnemyController_Change : MonoBehaviour
     {
         while (true)
         {
+            reloading++;
+            if(reloading >= shootRate)
+            {
+                GameObject go = Instantiate(Bullet);
+                go.transform.position = SootPosition.transform.position;
+                go.transform.eulerAngles = SootPosition.transform.eulerAngles;
+                reloading = 0;
+            }
+
             navMeshAgent.SetDestination(playertransform.transform.position);
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
