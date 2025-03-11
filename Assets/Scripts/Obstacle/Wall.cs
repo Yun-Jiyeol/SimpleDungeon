@@ -52,15 +52,21 @@ public class Wall : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Player"))
         {
-            isFall = false;
             float x = transform.position.x - other.transform.position.x;
             float z = transform.position.z - other.transform.position.z;
 
             other.GetComponent<PlayerStat>().TakeSomethingToHp(-Damage, new Vector3(x, 0, z));
-        }else if (other.gameObject.CompareTag("Enemy"))
+
+            if (Vector3.Distance(lastPosition, transform.position) > 0.2f) isFall = false;
+
+        }
+        else if (other.gameObject.CompareTag("Enemy"))
         {
-            isFall = false;
-            other.GetComponent<EnemyStat>().TakeSomethingToHp(-Damage);
+            if (Vector3.Distance(lastPosition, transform.position) > 0.2f)
+            {
+                isFall = false;
+                other.GetComponent<EnemyStat>().TakeSomethingToHp(-Damage);
+            }
         }
     }
 
