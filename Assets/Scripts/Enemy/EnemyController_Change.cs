@@ -32,7 +32,6 @@ public class EnemyController_Change : MonoBehaviour
     Coroutine nowEnemyMove;
     private NavMeshAgent navMeshAgent;
     private Transform playertransform;
-    public bool isFind = false;
 
     private void Start()
     {
@@ -78,7 +77,6 @@ public class EnemyController_Change : MonoBehaviour
         {
             if (Physics.Raycast(ray[i], out hit, GetQuestion, layerMask))
             {
-                isFind = false;
                 playertransform = hit.transform;
                 if (hit.distance > FollowDistance)
                 {
